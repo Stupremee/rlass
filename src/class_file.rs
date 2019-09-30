@@ -63,10 +63,45 @@ impl ClassFileVersion {
     pub fn latest() -> Self {
         Self::new(55, 0)
     }
+
+    /// Returns whether the `other` ClassFileVersion is supported by
+    /// by this ClassFileVersion.
+    ///
+    /// # Arguments
+    ///
+    /// * `other` - The ClassFileVersion which will be compared with this ClassFileVersion
+    ///
+    /// # Example
+    /// ```
+    /// use rlass::class_file::ClassFileVersion;
+    /// let first = ClassFileVersion::latest();
+    /// let second = ClassFileVersion::new(52, 0);
+    ///
+    /// first.supports(second); // Returns true because the `second` version is "lower" than the `first` version.
+    /// second.supports(first); // Returns false because the `first` version is "higher" than the `second` version.
+    /// ```
+    pub fn supports(&self, other: Self) -> bool {
+        other.major <= self.major && other.minor <= self.minor
+    }
 }
 
 impl Display for ClassFileVersion {
     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
         write!(f, "{}.{}", self.major, self.minor)
+    }
+}
+
+#[cfg(tests)]
+mod tests {
+    use crate::class_file::ClassFileVersion;
+
+    #[test]
+    fn version_supports_test() {
+        let first = ClassFileVersion::latest();
+        let second = ClassFileVersion::new(52, 0);
+
+        assert!(first.supports(second));
+        assert_ne!(second.supports(first));
+        assert!(first.supports(first));
     }
 }
