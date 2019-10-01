@@ -2,7 +2,7 @@ use std::fmt::{Display, Formatter, Error};
 
 /// The Magic number is used to
 /// identify the `class` file format
-const MAGIC: u32 = 0xCAFEBABE;
+const MAGIC_NUMBER: u32 = 0xCAFEBABE;
 
 /// The values of the minor_version and major_version items are the
 /// minor and major version numbers of this class file.
