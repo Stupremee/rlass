@@ -1,0 +1,22 @@
+name: Rust
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: "Builds the project via cargo on node ${{ matrix.node_version }} and ${{ matrix.os }}"
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: cargo build --verbose
+      
+  test:
+    runs-on: ${{ matrix.os }}
+    name: "Run tests via cargo on node ${{ matrix.node_version }} and ${{ matrix.os }}"
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run Tests
+      run: cargo test --verbose
