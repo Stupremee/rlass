@@ -89,3 +89,4 @@ impl Display for ClassFileVersion {
     fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
         write!(f, "{}.{}", self.major, self.minor)
     }
+}
