@@ -1,4 +1,4 @@
-pub mod class_file;
+pub mod parser;
 
 #[cfg(test)]
 mod tests {

@@ -31,7 +31,7 @@ const MAGIC_NUMBER: u32 = 0xCAFEBABE;
 ///
 /// # Important
 /// At the moment rlass only supports class file version up to 55.0.
-#[derive(Copy, Clone, Eq, PartialEq)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 pub struct ClassFileVersion {
     /// The major number of this version
     pub major: u16,
