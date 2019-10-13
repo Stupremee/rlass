@@ -1,4 +1,3 @@
-use crate::class_file::ClassFileVersion;
 use rlass::class_file::ClassFileVersion;
 
 #[test]
@@ -10,8 +9,8 @@ fn version_supports_test() {
     assert!(first.supports(second));
     assert!(first.supports(third));
     assert!(second.supports(third));
-    assert_ne!(second.supports(first));
+    assert!(!second.supports(first));
     assert!(first.supports(first));
-    assert_ne!(third.supports(second));
-    assert_ne!(third.supports(first));
+    assert!(!third.supports(second));
+    assert!(!third.supports(first));
 }
