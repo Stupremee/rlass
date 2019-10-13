@@ -81,7 +81,7 @@ impl ClassFileVersion {
     /// second.supports(first); // Returns false because the `first` version is "higher" than the `second` version.
     /// ```
     pub fn supports(&self, other: Self) -> bool {
-        other.major <= self.major && other.minor <= self.minor
+        other.major < self.major || (other.major == self.major && other.minor <= self.minor)
     }
 }
 
