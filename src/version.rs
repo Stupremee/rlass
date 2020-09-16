@@ -7,6 +7,7 @@ use std::fmt;
 
 /// The values of the minor_version and major_version items are the
 /// minor and major version numbers of this class file.
+///
 /// Together, a major and a minor version number determine the version
 /// of the class file format.
 /// If a class file has major version number M and minor version number m,
@@ -42,19 +43,6 @@ pub struct ClassFileVersion {
 
 impl ClassFileVersion {
     /// Returns a new ClassFileVersion with the given major and minor version.
-    ///
-    /// # Arguments
-    ///
-    /// * `major` - The major version of this class file version
-    /// * `minor` - The minor version of this class file version
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// // This snippet creates a new ClassFileVersion which represents the version 55.0
-    /// use rlass::class_file::ClassFileVersion;
-    /// let version = ClassFileVersion::new(55, 0);
-    /// ```
     pub fn new(major: u16, minor: u16) -> Self {
         ClassFileVersion { minor, major }
     }
@@ -67,10 +55,6 @@ impl ClassFileVersion {
 
     /// Returns whether the `other` ClassFileVersion is supported by
     /// by this ClassFileVersion.
-    ///
-    /// # Arguments
-    ///
-    /// * `other` - The ClassFileVersion which will be compared with this ClassFileVersion
     ///
     /// # Example
     /// ```
