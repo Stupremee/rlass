@@ -1,9 +1,17 @@
-pub mod class_file;
+#![forbid(
+    unsafe_code,
+    rust_2018_idioms,
+    warnings,
+    clippy::pedantic,
+    clippy::style,
+    clippy::perf,
+    clippy::nursery,
+    clippy::cargo
+)]
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-}
+pub mod types;
+pub mod version;
+
+/// The Magic number is used to
+/// identify the `class` file format
+pub const MAGIC: u32 = 0xCAFEBABE;

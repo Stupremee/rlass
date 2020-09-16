@@ -1,8 +1,9 @@
-use std::fmt::{Display, Formatter, Error};
+//! Implementation of the Class File version system as described
+//! in the [spec].
+//!
+//! [spec]: https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html
 
-/// The Magic number is used to
-/// identify the `class` file format
-const MAGIC: u32 = 0xCAFEBABE;
+use std::fmt;
 
 /// The values of the minor_version and major_version items are the
 /// minor and major version numbers of this class file.
@@ -85,8 +86,8 @@ impl ClassFileVersion {
     }
 }
 
-impl Display for ClassFileVersion {
-    fn fmt(&self, f: &mut Formatter) -> Result<(), Error> {
+impl fmt::Display for ClassFileVersion {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}.{}", self.major, self.minor)
     }
 }
