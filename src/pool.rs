@@ -4,7 +4,49 @@
 //!
 //! [here]: https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html#jvms-4.4
 
+use crate::types::u2;
 use std::rc::Rc;
+
+/// A single, unlinked entry in the constant pool.
+///
+/// This is only used during parsing, and will be "linked"
+/// later to a read `ConstantPoolEntry`.
+/// This entry uses raw indexes in the constant pool instead of
+/// `Rc<Entry>` indicies.
+#[derive(Debug, Clone)]
+pub(crate) enum UnlinkedConstantPoolEntry {
+    Class(u2),
+    FieldRef(UnlinkedRefEntry),
+    MethodRef(UnlinkedRefEntry),
+    InterfaceMethodRef(UnlinkedRefEntry),
+    String(u2),
+    Integer(i32),
+    Float(f32),
+    Long(i64),
+    Double(f64),
+    NameAndType {
+        name: u2,
+        descriptor: u2,
+    },
+    Utf8(String),
+    MethodHandle {
+        ref_kind: MethodHandleKind,
+        ref_entry: u2,
+    },
+    MethodType(u2),
+    /// bootstrap_attr_idx and name_and_type index
+    Dynamic(u2, u2),
+    /// bootstrap_attr_idx and name_and_type index
+    InvokeDynamic(u2, u2),
+    Module(u2),
+    Package(u2),
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct UnlinkedRefEntry {
+    pub(crate) class: u2,
+    pub(crate) name_and_ty: u2,
+}
 
 /// A single entry in the constant pool.
 ///

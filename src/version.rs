@@ -33,7 +33,7 @@ use std::fmt;
 ///
 /// # Important
 /// At the moment rlass only supports class file version up to 55.0.
-#[derive(Copy, Clone, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub struct ClassFileVersion {
     /// The major number of this version
     pub major: u16,
@@ -58,7 +58,7 @@ impl ClassFileVersion {
     ///
     /// # Example
     /// ```
-    /// use rlass::class_file::ClassFileVersion;
+    /// use rlass::version::ClassFileVersion;
     /// let first = ClassFileVersion::latest();
     /// let second = ClassFileVersion::new(52, 0);
     ///
@@ -73,5 +73,25 @@ impl ClassFileVersion {
 impl fmt::Display for ClassFileVersion {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}.{}", self.major, self.minor)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn version_supports_test() {
+        let first = ClassFileVersion::new(53, 0);
+        let second = ClassFileVersion::new(52, 1);
+        let third = ClassFileVersion::new(52, 0);
+
+        assert!(first.supports(second));
+        assert!(first.supports(third));
+        assert!(second.supports(third));
+        assert!(!second.supports(first));
+        assert!(first.supports(first));
+        assert!(!third.supports(second));
+        assert!(!third.supports(first));
     }
 }
